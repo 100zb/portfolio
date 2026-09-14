@@ -46,14 +46,20 @@ PROJECTS.forEach((project, index) => {
     <span class="project-expand-cue">Cliquer pour détailler ↓</span>
   `;
 
-  card.addEventListener("click", () => setActiveCard(index));
+  card.addEventListener("click", () => setActiveCard(index, true));
   track.appendChild(card);
   cards.push(card);
 });
 
-function setActiveCard(index) {
+function setActiveCard(index, scrollTo) {
   cards.forEach((c, i) => c.classList.toggle("is-active", i === index));
-  cards[index].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  if (scrollTo) {
+    // scrollIntoView here only ever needs to move the horizontal carousel track,
+    // never the page itself — scroll the track's scrollLeft directly instead.
+    const card = cards[index];
+    const target = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+    track.scrollTo({ left: target, behavior: "smooth" });
+  }
 }
 
 // Mark the card closest to the track's center as active while scrolling
@@ -179,94 +185,102 @@ hero?.addEventListener("click", (e) => {
   if (window.heroBurst) window.heroBurst();
 });
 
-// ===== Hero WebGL particle background =====
-// Fond de particules scintillantes, réagit légèrement au scroll et bien plus au clic (burst).
-const canvas = document.getElementById("heroCanvas");
+// ===== Site-wide WebGL glitter background =====
+// Shader plein écran, fixe derrière tout le site (pas juste le hero) : une texture de bruit
+// filtrée en puissance 12 pour ne garder que des points scintillants sur un fond sombre.
+// Un clic sur le hero envoie un "burst" qui accélère momentanément le scintillement.
+const canvas = document.getElementById("bgCanvas");
 
 if (canvas && !prefersReducedMotion && window.THREE) {
-  initHeroBackground(canvas);
+  initSiteBackground(canvas);
 } else if (canvas) {
   canvas.style.display = "none";
 }
 
-function initHeroBackground(canvas) {
-  const heroEl = canvas.parentElement;
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+function initSiteBackground(canvas) {
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
   const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
-  camera.position.z = 6;
+  const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
 
-  const particleCount = 320;
-  const positions = new Float32Array(particleCount * 3);
-  const basePositions = new Float32Array(particleCount * 3);
-
-  for (let i = 0; i < particleCount; i++) {
-    const x = (Math.random() - 0.5) * 12;
-    const y = (Math.random() - 0.5) * 7;
-    const z = (Math.random() - 0.5) * 4;
-    positions[i * 3] = x;
-    positions[i * 3 + 1] = y;
-    positions[i * 3 + 2] = z;
-    basePositions[i * 3] = x;
-    basePositions[i * 3 + 1] = y;
-    basePositions[i * 3 + 2] = z;
+  function generateNoiseTexture(size) {
+    const data = new Uint8Array(size * size * 4);
+    for (let i = 0; i < size * size; i++) {
+      const s = i * 4;
+      data[s] = Math.random() * 255;
+      data[s + 1] = Math.random() * 255;
+      data[s + 2] = Math.random() * 255;
+      data[s + 3] = 255;
+    }
+    const texture = new THREE.DataTexture(data, size, size, THREE.RGBAFormat);
+    texture.wrapS = THREE.RepeatWrapping;
+    texture.wrapT = THREE.RepeatWrapping;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.needsUpdate = true;
+    return texture;
   }
 
-  const geometry = new THREE.BufferGeometry();
-  geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+  const vertexShader = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `;
 
-  const material = new THREE.PointsMaterial({
-    color: 0xb79dff,
-    size: 0.045,
-    transparent: true,
-    opacity: 0.85,
-    sizeAttenuation: true,
+  const fragmentShader = `
+    uniform float iTime;
+    uniform sampler2D iChannel0;
+    uniform vec3 uTint;
+    varying vec2 vUv;
+    void main() {
+      vec2 uv = vUv;
+      float result = 0.0;
+      result += texture2D(iChannel0, uv * 1.4 + vec2(iTime * -0.006, iTime * 0.003)).r;
+      result *= texture2D(iChannel0, uv * 1.1 + vec2(iTime * 0.006, iTime * -0.004)).g;
+      result = pow(result, 12.0);
+      vec3 base = vec3(0.02, 0.02, 0.035);
+      gl_FragColor = vec4(base + uTint * result * 6.0, 1.0);
+    }
+  `;
+
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      iTime: { value: 0 },
+      iChannel0: { value: generateNoiseTexture(512) },
+      uTint: { value: new THREE.Vector3(0.49, 0.42, 1.0) },
+    },
+    vertexShader,
+    fragmentShader,
   });
 
-  const points = new THREE.Points(geometry, material);
-  scene.add(points);
+  const quad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), material);
+  scene.add(quad);
 
   function resize() {
-    const { clientWidth, clientHeight } = heroEl;
-    renderer.setSize(clientWidth, clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    camera.aspect = clientWidth / clientHeight;
-    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
   }
 
   resize();
   window.addEventListener("resize", resize);
 
   const clock = new THREE.Clock();
-  let burstStrength = 0;
+  let virtualTime = 0;
+  let burst = 0;
 
-  // Exposed so a click anywhere on the hero can trigger a burst
+  // Exposed so a click on the hero speeds up the shimmer for a moment
   window.heroBurst = () => {
-    burstStrength = 1;
+    burst = 1;
   };
 
   function animate() {
-    const t = clock.getElapsedTime();
-    points.rotation.y = t * 0.02;
-    points.rotation.x = Math.sin(t * 0.05) * 0.05;
+    const delta = clock.getDelta();
+    const speed = 0.55 + burst * 2.4;
+    virtualTime += delta * speed;
+    burst *= 0.93;
 
-    material.size = 0.045 + Math.sin(t * 2) * 0.01 + burstStrength * 0.06;
-
-    if (burstStrength > 0.001) {
-      const posAttr = geometry.attributes.position;
-      for (let i = 0; i < particleCount; i++) {
-        const bx = basePositions[i * 3];
-        const by = basePositions[i * 3 + 1];
-        const bz = basePositions[i * 3 + 2];
-        const scale = 1 + burstStrength * 0.35;
-        posAttr.array[i * 3] = bx * scale;
-        posAttr.array[i * 3 + 1] = by * scale;
-        posAttr.array[i * 3 + 2] = bz * scale;
-      }
-      posAttr.needsUpdate = true;
-      burstStrength *= 0.92;
-    }
-
+    material.uniforms.iTime.value = virtualTime;
     renderer.render(scene, camera);
     requestAnimationFrame(animate);
   }
