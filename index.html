@@ -32,8 +32,8 @@
   <section class="hero" id="top">
     <canvas id="heroCanvas"></canvas>
     <div class="hero-inner">
-      <p class="hero-eyebrow">Étudiant BUT Informatique · Dispo alternance sept. 2026</p>
-      <h1 class="hero-title">Ali Khaloui</h1>
+      <p class="hero-eyebrow">Étudiant BUT Informatique · Stage fin avril → juin/juillet</p>
+      <h1 class="hero-title" id="heroTitle">Ali Khaloui</h1>
       <p class="hero-subtitle">Je développe des applications web, des jeux et des outils métier — du backend PHP/Java aux interfaces qu'on a envie d'utiliser.</p>
       <div class="hero-actions">
         <a href="#projects" class="btn btn-primary">Voir mes projets</a>
@@ -44,13 +44,14 @@
   </section>
 
   <section class="section" id="about">
+    <div class="blob" style="width:340px;height:340px;top:-60px;right:-80px;"></div>
     <div class="section-inner about-grid">
       <div class="section-head">
         <span class="tag">À propos</span>
         <h2>Étudiant en développement, curieux de tout ce qui se construit</h2>
       </div>
       <div class="about-text">
-        <p>Je suis en BUT Informatique (parcours développement d'applications) à l'IUT de Marne-la-Vallée, Université Gustave Eiffel. Je cherche une alternance de deux ans en développement d'applications à partir de septembre 2026.</p>
+        <p>Je suis en BUT Informatique (parcours développement d'applications) à l'IUT de Marne-la-Vallée, Université Gustave Eiffel. Je cherche un stage de fin avril à fin juin / début juillet, sur des missions de développement ou de modification de code.</p>
         <p>J'aime autant construire un moteur de jeu en Python qu'une appli web PHP/PostgreSQL pour un vrai besoin métier. Ce qui me motive : comprendre comment un système est architecturé, pas juste le faire marcher.</p>
         <div class="about-facts">
           <div class="fact">
@@ -62,8 +63,8 @@
             <span class="fact-label">langages pratiqués</span>
           </div>
           <div class="fact">
-            <span class="fact-num">2026</span>
-            <span class="fact-label">recherche d'alternance</span>
+            <span class="fact-num">avr-juil</span>
+            <span class="fact-label">disponible pour un stage</span>
           </div>
         </div>
       </div>
@@ -71,6 +72,7 @@
   </section>
 
   <section class="section section-alt" id="skills">
+    <div class="blob" style="width:280px;height:280px;bottom:-100px;left:-60px;"></div>
     <div class="section-inner">
       <div class="section-head">
         <span class="tag">Compétences</span>
@@ -121,29 +123,37 @@
 
   <section class="section" id="projects">
     <div class="section-inner">
-      <div class="section-head">
-        <span class="tag">Projets</span>
-        <h2>Ce que j'ai construit</h2>
+      <div class="section-head projects-head">
+        <div>
+          <span class="tag">Projets</span>
+          <h2>Ce que j'ai construit</h2>
+          <p class="projects-hint">Glisse ou utilise les flèches — clique un projet pour le détailler.</p>
+        </div>
+        <div class="carousel-nav">
+          <button class="carousel-btn" id="prevBtn" aria-label="Projet précédent">←</button>
+          <button class="carousel-btn" id="nextBtn" aria-label="Projet suivant">→</button>
+        </div>
       </div>
-      <div class="projects-grid" id="projectsGrid"></div>
+      <div class="carousel-track" id="projectsGrid"></div>
     </div>
   </section>
 
   <section class="section section-alt contact-section" id="contact">
+    <div class="blob" style="width:320px;height:320px;top:-80px;left:40%;"></div>
     <div class="section-inner contact-grid">
       <div class="section-head">
         <span class="tag">Contact</span>
-        <h2>Une alternance à pourvoir ? Parlons-en.</h2>
-        <p class="contact-lead">En recherche d'une alternance de deux ans en développement d'applications à partir de septembre 2026.</p>
+        <h2>Un stage à pourvoir ? Parlons-en.</h2>
+        <p class="contact-lead">En recherche d'un stage de fin avril à fin juin / début juillet, sur des missions de développement ou de modification de code — pas de la maintenance.</p>
       </div>
       <div class="contact-cards">
-        <a class="contact-card" href="mailto:alii.khaa77500@gmail.com">
+        <a class="contact-card" href="mailto:ali.kha77500@gmail.com">
           <span class="contact-label">Email</span>
-          <span class="contact-value">alii.khaa77500@gmail.com</span>
+          <span class="contact-value">ali.kha77500@gmail.com</span>
         </a>
-        <a class="contact-card" href="https://github.com/rjali75" target="_blank" rel="noopener">
+        <a class="contact-card" href="https://github.com/100zb" target="_blank" rel="noopener">
           <span class="contact-label">GitHub</span>
-          <span class="contact-value">@rjali75</span>
+          <span class="contact-value">@100zb</span>
         </a>
         <a class="contact-card" href="assets/cv-ali-khaloui.pdf" download>
           <span class="contact-label">CV</span>
