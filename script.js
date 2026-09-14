@@ -157,11 +157,13 @@ const revealObserver = new IntersectionObserver(
 revealTargets.forEach((el) => revealObserver.observe(el));
 
 // ===== Hero: mouse parallax tilt + click ripple/burst =====
-const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+// Note : le portfolio est un choix esthétique voulu (animations, fond WebGL),
+// donc on ne coupe pas ces effets même si le système a "réduire les animations"
+// activé (ex: certains PC Windows l'ont par défaut sans que l'utilisateur le sache).
 const hero = document.querySelector(".hero");
 const heroInner = document.querySelector(".hero-inner");
 
-if (hero && heroInner && canHover && !prefersReducedMotion) {
+if (hero && heroInner && canHover) {
   hero.addEventListener("mousemove", (e) => {
     const r = hero.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5;
@@ -191,7 +193,7 @@ hero?.addEventListener("click", (e) => {
 // Un clic sur le hero envoie un "burst" qui accélère momentanément le scintillement.
 const canvas = document.getElementById("bgCanvas");
 
-if (canvas && !prefersReducedMotion && window.THREE) {
+if (canvas && window.THREE) {
   initSiteBackground(canvas);
 } else if (canvas) {
   canvas.style.display = "none";
