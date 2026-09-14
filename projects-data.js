@@ -68,14 +68,5 @@ const PROJECTS = [
     ],
     stack: ["C", "Java", "PHP", "SQL"],
     link: null
-  },
-  {
-    title: "Château Quest",
-    tag: "Jeu",
-    status: null,
-    description: "Projet à détailler — dis-moi en une phrase de quoi il s'agit et je complète la carte.",
-    highlights: [],
-    stack: [],
-    link: null
   }
 ];
