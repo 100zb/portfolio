@@ -16,7 +16,7 @@ const PROJECTS = [
       "Variantes : dragons mobiles, trésors, sauvegarde de partie"
     ],
     stack: ["Python", "fltk", "POO"],
-    image: null,
+    image: "assets/projects/wall-is-you.webp",
     link: null
   },
   {
@@ -30,7 +30,7 @@ const PROJECTS = [
       "Interface 100% console, aucune dépendance externe"
     ],
     stack: ["Java", "MVC", "POO"],
-    image: null,
+    image: "assets/projects/schtroumpfs.webp",
     link: null
   },
   {
@@ -44,7 +44,7 @@ const PROJECTS = [
       "Page d'audit complète pour tracer les opérations"
     ],
     stack: ["PHP", "PostgreSQL", "SQL"],
-    image: null,
+    image: "assets/projects/gestion-patients.webp",
     link: null
   },
   {
@@ -58,7 +58,7 @@ const PROJECTS = [
       "Frise chronologique interactive des dynasties"
     ],
     stack: ["HTML5", "CSS3", "JavaScript"],
-    image: null,
+    image: "assets/projects/muraille-de-chine.webp",
     link: null
   },
   {
@@ -72,7 +72,7 @@ const PROJECTS = [
       "Serveur web PHP objet : comptes, salons, parties, historique"
     ],
     stack: ["C", "Java", "PHP", "SQL"],
-    image: null,
+    image: "assets/projects/boggle.webp",
     link: null
   }
 ];
