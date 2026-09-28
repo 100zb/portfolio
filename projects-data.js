@@ -2,6 +2,7 @@
 // sans toucher au HTML — chaque objet devient une carte dans le carrousel.
 // "description" = teaser toujours visible. "highlights" = détails qui apparaissent
 // quand la carte devient active (clic ou centrée dans le carrousel).
+// "image" = chemin de la capture (ex. "assets/projects/wall-is-you.png"), null = placeholder.
 
 const PROJECTS = [
   {
@@ -15,6 +16,7 @@ const PROJECTS = [
       "Variantes : dragons mobiles, trésors, sauvegarde de partie"
     ],
     stack: ["Python", "fltk", "POO"],
+    image: null,
     link: null
   },
   {
@@ -28,6 +30,7 @@ const PROJECTS = [
       "Interface 100% console, aucune dépendance externe"
     ],
     stack: ["Java", "MVC", "POO"],
+    image: null,
     link: null
   },
   {
@@ -41,6 +44,7 @@ const PROJECTS = [
       "Page d'audit complète pour tracer les opérations"
     ],
     stack: ["PHP", "PostgreSQL", "SQL"],
+    image: null,
     link: null
   },
   {
@@ -54,6 +58,7 @@ const PROJECTS = [
       "Frise chronologique interactive des dynasties"
     ],
     stack: ["HTML5", "CSS3", "JavaScript"],
+    image: null,
     link: null
   },
   {
@@ -67,6 +72,7 @@ const PROJECTS = [
       "Serveur web PHP objet : comptes, salons, parties, historique"
     ],
     stack: ["C", "Java", "PHP", "SQL"],
+    image: null,
     link: null
   }
 ];

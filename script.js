@@ -55,7 +55,9 @@ PROJECTS.forEach((project, index) => {
       <p>${project.description}</p>
       <div class="project-meta">${metaParts.toUpperCase()}</div>
     </div>
-    <div class="project-thumb" data-thumb>[ CAPTURE ]</div>
+    <div class="project-thumb" data-thumb>${project.image
+      ? `<img src="${project.image}" alt="Capture du projet ${project.title}" loading="lazy">`
+      : "[ CAPTURE ]"}</div>
   `;
 
   list.appendChild(row);
