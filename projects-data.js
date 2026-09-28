@@ -6,6 +6,20 @@
 
 const PROJECTS = [
   {
+    title: "Nova",
+    tag: "Plateforme web — Full-stack",
+    status: null,
+    description: "Plateforme communautaire de blogging : articles en Markdown, commentaires, likes et profils d'auteurs.",
+    highlights: [
+      "Authentification, rôles admin et tableau de bord auteur complet",
+      "Éditeur Markdown avec aperçu, commentaires threadés, messagerie et notifications",
+      "Déployée sur Vercel avec une base PostgreSQL Neon, SEO (sitemap, RSS)"
+    ],
+    stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind"],
+    image: "assets/projects/nova.webp",
+    link: null
+  },
+  {
     title: "Wall is You",
     tag: "Jeu — Python",
     status: null,
