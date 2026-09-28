@@ -36,6 +36,53 @@ sidebarNav.querySelectorAll("a").forEach((link) => {
 // ===== Footer year =====
 document.getElementById("year").textContent = new Date().getFullYear();
 
+// ===== Projet phare (Nova) : galerie + détails =====
+const featuredEl = document.getElementById("featuredProject");
+if (featuredEl && typeof FEATURED_PROJECT !== "undefined") {
+  const f = FEATURED_PROJECT;
+  featuredEl.innerHTML = `
+    <div class="featured-head">
+      <span class="featured-tag">${f.tag}</span>
+      <h3 class="serif">${f.title}</h3>
+      <p class="featured-pitch">${f.pitch}</p>
+      <div class="featured-actions">
+        ${f.link ? `<a class="btn-primary" href="${f.link}" target="_blank" rel="noopener">Voir le site ↗</a>` : ""}
+        ${f.repo ? `<a class="btn-ghost" href="${f.repo}" target="_blank" rel="noopener">Code source</a>` : ""}
+      </div>
+    </div>
+    <figure class="featured-main">
+      <img id="featuredMainImg" src="${f.images[0].src}" alt="${f.title} — ${f.images[0].caption}">
+      <figcaption id="featuredCaption">${f.images[0].caption}</figcaption>
+    </figure>
+    <div class="featured-thumbs" role="list">
+      ${f.images.map((img, i) => `
+        <button type="button" class="featured-thumb${i === 0 ? " is-active" : ""}" data-index="${i}" aria-label="${img.caption}">
+          <img src="${img.src}" alt="" loading="lazy">
+        </button>`).join("")}
+    </div>
+    <div class="featured-body">
+      <div class="featured-text">${f.details.map((d) => `<p>${d}</p>`).join("")}</div>
+      <div>
+        <h4>Fonctionnalités</h4>
+        <ul class="featured-features">${f.features.map((x) => `<li>${x}</li>`).join("")}</ul>
+      </div>
+    </div>
+    <ul class="skill-tags featured-stack">${f.stack.map((x) => `<li>${x}</li>`).join("")}</ul>
+  `;
+
+  const mainImg = document.getElementById("featuredMainImg");
+  const caption = document.getElementById("featuredCaption");
+  featuredEl.querySelectorAll(".featured-thumb").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const img = f.images[Number(btn.dataset.index)];
+      mainImg.src = img.src;
+      mainImg.alt = `${f.title} — ${img.caption}`;
+      caption.textContent = img.caption;
+      featuredEl.querySelectorAll(".featured-thumb").forEach((b) => b.classList.toggle("is-active", b === btn));
+    });
+  });
+}
+
 // ===== Rendu des projets (depuis projects-data.js) en liste "spread" =====
 const list = document.getElementById("projectsList");
 

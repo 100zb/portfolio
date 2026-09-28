@@ -6,20 +6,6 @@
 
 const PROJECTS = [
   {
-    title: "Nova",
-    tag: "Plateforme web — Full-stack",
-    status: null,
-    description: "Plateforme communautaire de blogging : articles en Markdown, commentaires, likes et profils d'auteurs.",
-    highlights: [
-      "Authentification, rôles admin et tableau de bord auteur complet",
-      "Éditeur Markdown avec aperçu, commentaires threadés, messagerie et notifications",
-      "Déployée sur Vercel avec une base PostgreSQL Neon, SEO (sitemap, RSS)"
-    ],
-    stack: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "Tailwind"],
-    image: "assets/projects/nova.webp",
-    link: null
-  },
-  {
     title: "Wall is You",
     tag: "Jeu — Python",
     status: null,
@@ -90,3 +76,32 @@ const PROJECTS = [
     link: null
   }
 ];
+
+// Projet phare, affiché en grand au-dessus de la liste.
+const FEATURED_PROJECT = {
+  title: "Nova",
+  tag: "Projet phare — Plateforme web full-stack",
+  pitch: "Une plateforme communautaire de blogging complète : on y écrit des articles en Markdown, on échange en commentaires, on suit des auteurs et on discute en messages privés.",
+  details: [
+    "Nova est une application web full-stack que j'ai conçue et mise en ligne de bout en bout : base de données, authentification, interface, déploiement.",
+    "Chaque membre a son profil public et son tableau de bord pour rédiger, publier, dépublier ou supprimer ses articles. Un espace d'administration permet de gérer les utilisateurs (suspension, rôles) et d'ouvrir ou fermer les inscriptions."
+  ],
+  features: [
+    "Éditeur Markdown avec aperçu en direct et coloration du code",
+    "Commentaires imbriqués, likes, abonnements entre auteurs",
+    "Messagerie privée et notifications",
+    "Recherche, filtres par catégorie et tag, pagination",
+    "Connexion email / mot de passe, rôles et panneau admin",
+    "Thème clair / sombre, animations, SEO (sitemap, flux RSS, Open Graph)"
+  ],
+  stack: ["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma", "Auth.js", "Tailwind CSS", "Vercel", "Neon"],
+  images: [
+    { src: "assets/projects/nova-home.webp", caption: "Page d'accueil" },
+    { src: "assets/projects/nova-blog.webp", caption: "Liste des articles, recherche et filtres" },
+    { src: "assets/projects/nova-post.webp", caption: "Lecture d'un article avec code coloré" },
+    { src: "assets/projects/nova-dashboard.webp", caption: "Tableau de bord auteur" },
+    { src: "assets/projects/nova-editor.webp", caption: "Éditeur Markdown" }
+  ],
+  link: "https://nova-gamma-indol.vercel.app",
+  repo: "https://github.com/100zb/Nova"
+};
