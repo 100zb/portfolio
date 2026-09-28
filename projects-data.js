@@ -2,6 +2,7 @@
 // sans toucher au HTML — chaque objet devient une carte dans le carrousel.
 // "description" = teaser toujours visible. "highlights" = détails qui apparaissent
 // quand la carte devient active (clic ou centrée dans le carrousel).
+// "image" = chemin de la capture (ex. "assets/projects/wall-is-you.png"), null = placeholder.
 
 const PROJECTS = [
   {
@@ -15,6 +16,7 @@ const PROJECTS = [
       "Variantes : dragons mobiles, trésors, sauvegarde de partie"
     ],
     stack: ["Python", "fltk", "POO"],
+    image: "assets/projects/wall-is-you.webp",
     link: null
   },
   {
@@ -28,6 +30,7 @@ const PROJECTS = [
       "Interface 100% console, aucune dépendance externe"
     ],
     stack: ["Java", "MVC", "POO"],
+    image: "assets/projects/schtroumpfs.webp",
     link: null
   },
   {
@@ -41,6 +44,7 @@ const PROJECTS = [
       "Page d'audit complète pour tracer les opérations"
     ],
     stack: ["PHP", "PostgreSQL", "SQL"],
+    image: "assets/projects/gestion-patients.webp",
     link: null
   },
   {
@@ -54,6 +58,7 @@ const PROJECTS = [
       "Frise chronologique interactive des dynasties"
     ],
     stack: ["HTML5", "CSS3", "JavaScript"],
+    image: "assets/projects/muraille-de-chine.webp",
     link: null
   },
   {
@@ -67,6 +72,36 @@ const PROJECTS = [
       "Serveur web PHP objet : comptes, salons, parties, historique"
     ],
     stack: ["C", "Java", "PHP", "SQL"],
+    image: "assets/projects/boggle.webp",
     link: null
   }
 ];
+
+// Projet phare, affiché en grand au-dessus de la liste.
+const FEATURED_PROJECT = {
+  title: "Nova",
+  tag: "Projet phare — Plateforme web full-stack",
+  pitch: "Une plateforme communautaire de blogging complète : on y écrit des articles en Markdown, on échange en commentaires, on suit des auteurs et on discute en messages privés.",
+  details: [
+    "Nova est une application web full-stack que j'ai conçue et mise en ligne de bout en bout : base de données, authentification, interface, déploiement.",
+    "Chaque membre a son profil public et son tableau de bord pour rédiger, publier, dépublier ou supprimer ses articles. Un espace d'administration permet de gérer les utilisateurs (suspension, rôles) et d'ouvrir ou fermer les inscriptions."
+  ],
+  features: [
+    "Éditeur Markdown avec aperçu en direct et coloration du code",
+    "Commentaires imbriqués, likes, abonnements entre auteurs",
+    "Messagerie privée et notifications",
+    "Recherche, filtres par catégorie et tag, pagination",
+    "Connexion email / mot de passe, rôles et panneau admin",
+    "Thème clair / sombre, animations, SEO (sitemap, flux RSS, Open Graph)"
+  ],
+  stack: ["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma", "Auth.js", "Tailwind CSS", "Vercel", "Neon"],
+  images: [
+    { src: "assets/projects/nova-home.webp", caption: "Page d'accueil" },
+    { src: "assets/projects/nova-blog.webp", caption: "Liste des articles, recherche et filtres" },
+    { src: "assets/projects/nova-post.webp", caption: "Lecture d'un article avec code coloré" },
+    { src: "assets/projects/nova-dashboard.webp", caption: "Tableau de bord auteur" },
+    { src: "assets/projects/nova-editor.webp", caption: "Éditeur Markdown" }
+  ],
+  link: "https://nova-gamma-indol.vercel.app",
+  repo: "https://github.com/100zb/Nova"
+};
