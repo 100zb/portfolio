@@ -77,8 +77,9 @@ const PROJECTS = [
   }
 ];
 
-// Projet phare, affiché en grand au-dessus de la liste.
-const FEATURED_PROJECT = {
+// Projets phares, affichés en grand au-dessus de la liste.
+const FEATURED_PROJECTS = [
+{
   title: "Nova",
   tag: "Projet phare — Plateforme web full-stack",
   pitch: "Une plateforme communautaire de blogging complète : on y écrit des articles en Markdown, on échange en commentaires, on suit des auteurs et on discute en messages privés.",
@@ -104,4 +105,33 @@ const FEATURED_PROJECT = {
   ],
   link: "https://nova-gamma-indol.vercel.app",
   repo: "https://github.com/100zb/Nova"
-};
+},
+{
+  title: "Jarvis",
+  tag: "Projet phare — Assistant personnel IA",
+  pitch: "Un assistant personnel en Python qui ne se contente pas de répondre : il agit. Une question devient une recherche web, une carte, un globe 3D ou une application qui s'ouvre.",
+  details: [
+    "Jarvis s'appuie sur le tool calling : le modèle de langage (via l'API Groq) choisit l'outil adapté à la demande, Python l'exécute et le résultat s'affiche. La boucle recommence à chaque message.",
+    "Chaque capacité est une simple fonction Python marquée par un décorateur @tool que j'ai écrit : il lit la signature et la docstring pour générer automatiquement le schéma envoyé au modèle. Ajouter un outil tient en quelques lignes.",
+    "Il s'utilise en terminal ou dans une application desktop, et possède son propre site de présentation."
+  ],
+  features: [
+    "7 outils : recherche web, calcul, heure, ouverture d'applications, carte et globe 3D",
+    "Décorateur @tool maison qui génère les schémas à partir du code",
+    "App desktop Electron pilotant un backend FastAPI local, réponses en streaming",
+    "Historique des conversations sauvegardé en SQLite, commandes /reset, /compact, /stats",
+    "Installeur Windows (.exe) généré automatiquement par GitHub Actions",
+    "Site vitrine avec orbe 3D en Three.js, déployé sur Cloudflare"
+  ],
+  stack: ["Python", "Groq", "FastAPI", "Electron", "SQLite", "Three.js", "GitHub Actions", "Cloudflare"],
+  images: [
+    { src: "assets/projects/jarvis-hero.webp", caption: "Site de présentation — accueil et orbe 3D" },
+    { src: "assets/projects/jarvis-manifeste.webp", caption: "Le principe : un assistant qui passe à l'acte" },
+    { src: "assets/projects/jarvis-capacites.webp", caption: "Carrousel des capacités" },
+    { src: "assets/projects/jarvis-capot.webp", caption: "Architecture : toi → Jarvis → Groq → outils → résultat" },
+    { src: "assets/projects/jarvis-installer.webp", caption: "Installation en quatre commandes" }
+  ],
+  link: null,
+  repo: "https://github.com/100zb/jarvis-ali"
+}
+];
