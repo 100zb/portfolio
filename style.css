@@ -162,8 +162,9 @@ main{margin-left:var(--sidebar-w);position:relative;z-index:2;padding:80px 56px 
 
 
 /* ---------- projet phare ---------- */
+.featured-list{display:flex;flex-direction:column;gap:56px;margin-bottom:90px;}
 .featured{
-  position:relative;margin-bottom:90px;padding:36px;
+  position:relative;padding:36px;
   background:rgba(241,236,250,0.04);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border:1px solid var(--hair-strong);box-shadow:0 24px 60px rgba(0,0,0,.35);
   display:flex;flex-direction:column;gap:24px;
